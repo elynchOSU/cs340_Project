@@ -1,0 +1,123 @@
+<div class="container"> <!-- Coaches content -->
+        <h1>Coaches</h1> 
+
+	<br>
+
+	<div id="insert">
+			<!-- form to INSERT new data into Coaches-->
+			<form id="insertCoach" action="/coach" method="post" width=50%>
+				<legend><strong>Add Coach</strong></legend>
+				<fieldset>
+					
+					<label for="make">Coach Name</label>
+					<input type="text" class="form-control" id="coach_name" name="coach_name" placeholder="" required>
+
+                    <label> Team </label> <select name="team_name">
+                        <option value="0">&nbsp;</option>
+                        <option value="1">Real Madrid CF</option>
+                        <option value="2">Manchester City</option>
+                        <option value="3">Paris Saint Germain FC</option>
+                        </select>
+
+                    <label for="make">Head Coach?</label>
+                    <input type="checkbox" class="form-control" id="head_coach" name="head_coach" >
+                
+                </fieldset>
+
+		        <!-- Create 'Add Coach' and 'Cancel' buttons -->
+				<input type="submit" value="Add Coach" name="Add_Coach" class="btn btn-primary" style="margin:.5rem;">
+				<input class="btn" type="button" value="Cancel" onClick="browseCoaches()"> 
+			</form>
+	</div><!--Add Coach-->
+
+    <div id="edit">
+        <form id="insertCoach" action="/coach" method="put" width=50%>
+            <legend><strong>Edit Coach</strong></legend>
+            <fieldset>
+                
+                <label for="make">Coach Name</label>
+                <select name="coach_name">
+                    <option value="0">&nbsp;</option>
+                    <option value="1">Carlo Ancelotti</option>
+                    <option value="2">Pep Guardiola</option>
+                    <option value="3">Christophe Galtier</option>
+                    </select>
+
+                <label> Team </label> <select name="team_name">
+                    <option value="0">&nbsp;</option>
+                    <option value="1">Real Madrid CF</option>
+                    <option value="2">Manchester City</option>
+                    <option value="3">Paris Saint Germain FC</option>
+                    </select>
+
+                <label for="make">Head Coach?</label>
+                <input type="checkbox" class="form-control" id="head_coach" name="head_coach" >
+            
+            </fieldset>
+
+            <!-- Create 'Edit Coach' and 'Cancel' buttons -->
+            <input type="submit" value="Edit Coach" name="Edit_Coach" class="btn btn-primary" style="margin:.5rem;">
+            <input class="btn" type="button" value="Cancel" onClick="browseCoaches()"> 
+        </form>
+    </div><!-- Edit Coach -->
+
+    <div id="delete">
+        <form id="insertCoach" action="/coach" method="delete" width=50%>
+            <legend><strong>Delete Coach</strong></legend>
+            <fieldset>
+                
+                <label for="make">Coach Name</label>
+                <select name="coach_name">
+                    <option value="0">&nbsp;</option>
+                    <option value="1">Carlo Ancelotti</option>
+                    <option value="2">Pep Guardiola</option>
+                    <option value="3">Jurgen Klopp</option>
+                    </select>
+
+            </fieldset>
+
+            <!-- Create 'Delete Coach' and 'Cancel' buttons -->
+            <input type="submit" value="Delete Coach" name="Delete_Coach" class="btn btn-primary" style="margin:.5rem;">
+            <input class="btn" type="button" value="Cancel" onClick="browseCoaches()"> 
+        </form>
+    </div><!-- Delete Coach -->
+
+    <div id="browse">
+			
+		<table border="1" cellpadding="6">
+				
+			<thead>
+				<tr>							
+				    <th scope="col" data-field="Coach ID" data-filter-control="input">Coach ID</th>							
+				    <th scope="col" data-field="Coach Name" data-filter-control="input">Coach Name</th>							
+					<th scope="col" data-field="Coach Team" data-filter-control="input">Team</th>	
+                    <th scope="col" data-field="Head Coach" data-filter-control="input">Head Coach?</th>	
+							
+                </tr>
+			<tbody>
+				<tr>	
+					<td> 1 </td> 	
+					<td> Carlo Ancelotti </td> 	
+					<td> Manchester City </td> 	
+                    <td> Yes </td>
+				</tr> 
+							
+				<tr>						
+					<td> 2 </td> 	
+					<td> Pep Guardiola </td> 	
+					<td> Real Madrid CF </td> 	
+                    <td> Yes </td>
+         
+                </tr> 
+                
+                <tr>							
+                    <td> 3 </td> 	
+					<td> Jurgen Klopp </td> 	
+					<td> Paris Saint Germain FC</td> 	
+                    <td> Yes </td>                   	
+                </tr> 
+							 	 
+		</table>   
+	    <p>&nbsp;</p>
+	</div>
+	</div> <!-- End of coaches content -->

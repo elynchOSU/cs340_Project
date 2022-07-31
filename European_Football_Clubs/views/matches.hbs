@@ -1,0 +1,82 @@
+	<div class="matches-container"> <!-- Matches content -->
+		<h1>Matches</h1> 
+
+	<br>
+
+	<div id="insert">
+			<!-- form to INSERT new data into matches-->
+			<form id="insertMatch" action="/match" method="post" width=50%>
+				<legend><strong>Add Match</strong></legend>
+				<fieldset>
+					
+					<label for="make">Match Date</label>
+					<input type="date" class="form-control" id="match_date" name="match_date" placeholder="" required>
+
+                    <label> Home Team </label> <select name="home_team_name">
+                        <option value="0">&nbsp;</option>
+                        <option value="1">Real Madrid CF</option>
+                        <option value="2">Manchester City</option>
+                        <option value="3">Paris Saint Germain FC</option>
+                        </select>
+
+                    <label> Away Team </label> <select name="away_team_name">
+                        <option value="0">&nbsp;</option>
+                        <option value="1">Real Madrid CF</option>
+                        <option value="2">Manchester City</option>
+                        <option value="3">Paris Saint Germain FC</option>
+                        </select>
+
+                    <label for="make">Home Team Score</label>
+                    <input type="number" class="form-control" id="home_score" name="home_score" placeholder="0" min="0">
+
+                    <label for="make">Away Team Score</label>
+                    <input type="number" class="form-control" id="away_score" name="away_score" placeholder="0" min="0">
+                </fieldset>
+
+		        <!-- Create 'Add Match' and 'Cancel' buttons -->
+				<input type="submit" value="Add Match" name="Add_Match" class="btn btn-primary" style="margin:.5rem;">
+				<input class="btn" type="button" value="Cancel" onClick="browseMatches()"> 
+			</form>
+	</div><!--Add Match-->
+
+    <div id="browse">
+			
+		<table border="1" cellpadding="6">
+				
+			<thead>
+				<tr>							
+				    <th scope="col" data-field="Match Date" data-filter-control="input">Match Date</th>							
+				    <th scope="col" data-field="Home Team" data-filter-control="input">Home Team</th>							
+					<th scope="col" data-field="Away Team" data-filter-control="input">Away Team</th>	
+                    <th scope="col" data-field="Home Score" data-filter-control="input">Home Score</th>	
+					<th scope="col" data-field="Away Score" data-filter-control="input">Away Score</th>			
+                </tr>
+			<tbody>
+				<tr>	
+					<td> 2022-05-28 </td> 	
+					<td> Manchester City </td> 	
+					<td> Paris Saint Germain FC </td> 	
+                    <td> 3 </td>
+                    <td> 3 </td>
+				</tr> 
+							
+				<tr>						
+					<td> 2022-03-21 </td> 	
+					<td> Paris Saint Germain FC </td> 	
+					<td> Real Madrid CF </td> 	
+                    <td> 0 </td>
+                    <td> 1 </td>
+                </tr> 
+                
+                <tr>							
+                    <td> 2022-06-23 </td> 	
+					<td> Real Madrid CF </td> 	
+					<td> Manchester City </td> 	
+                    <td> 1 </td>
+                    <td> 3 </td>                  	
+                </tr> 
+							 	 
+		</table>   
+	    <p>&nbsp;</p>
+	</div>
+	</div> <!-- End of matches content -->

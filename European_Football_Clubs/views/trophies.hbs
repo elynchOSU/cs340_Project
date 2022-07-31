@@ -1,0 +1,74 @@
+    <div class="container"> <!-- Trophies content -->
+
+		<h1>Trophies</h1> 
+
+	<br>
+
+	<div id="insert">
+			<!-- form to INSERT new data into Trophies-->
+			<form id="insertTrophy" action="/trophy" method="post" width=50%>
+				<legend><strong>Add Trophy</strong></legend>
+				<fieldset>
+					
+					<label for="make">Trophy Name</label>
+					<input type="text" class="form-control" id="trophy_name" name="trophy_name" placeholder="" required>
+
+                    <label for="make">Year</label>
+					<input type="number" class="form-control" id="trophy_year" name="trophy_year" placeholder="" required>
+
+                    <label> Winning Team </label> <select name="team_name">
+                        <option value="0">&nbsp;</option>
+                        <option value="1">Real Madrid CF</option>
+                        <option value="2">Manchester City</option>
+                        <option value="3">Paris Saint Germain FC</option>
+                        </select>
+
+                
+                </fieldset>
+
+		        <!-- Create 'Add Trophy' and 'Cancel' buttons -->
+				<input type="submit" value="Add Trophy" name="Add_Trophy" class="btn btn-primary" style="margin:.5rem;">
+				<input class="btn" type="button" value="Cancel" onClick="browseTrophies()"> 
+			</form>
+	</div><!--Add Trophy-->
+
+    <div id="browse">
+			
+		<table border="1" cellpadding="6">
+				
+			<thead>
+				<tr>							
+				    <th scope="col" data-field="Trophy ID" data-filter-control="input">Trophy ID</th>							
+				    <th scope="col" data-field="Trophy Name" data-filter-control="input">Trophy Name</th>							
+					<th scope="col" data-field="Trophy Year" data-filter-control="input">Year</th>	
+                    <th scope="col" data-field="Team ID" data-filter-control="input">Winner</th>	
+							
+                </tr>
+			<tbody>
+				<tr>	
+					<td> 1 </td> 	
+					<td> Community Shield </td> 	
+					<td> 2019 </td> 	
+                    <td> Manchester City </td>
+				</tr> 
+							
+				<tr>						
+					<td> 2 </td> 	
+					<td> League Cup </td> 	
+					<td> 2021 </td> 	
+                    <td> Manchester City </td>
+         
+                </tr> 
+                
+                <tr>							
+                    <td> 3 </td> 	
+					<td> England FA Cup </td> 	
+					<td> 2022</td> 	
+                    <td> Real Madrid CF </td>                   	
+                </tr> 
+							 	 
+		</table>   
+	    <p>&nbsp;</p>
+	</div>
+    
+    </div> <!-- End of trophies content -->

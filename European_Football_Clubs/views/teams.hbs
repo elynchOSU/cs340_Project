@@ -1,0 +1,57 @@
+	<div class="container"> <!-- Teams content -->
+		<h1>Teams</h1> 
+		<br>
+		<div id="insert">
+				<!-- form to INSERT new data into Teams-->
+				<form id="insertTeam" action="/teams" method="post" width=50%>
+					<legend><strong>Add Team</strong></legend>
+					<fieldset>
+						
+						<label for="make">Team Name</label>
+						<input type="text" class="form-control" id="team_name" name="team_name" placeholder="" required>
+
+						<label for="make">Play Ground</label>
+						<input type="text" class="form-control" id="play_ground" name="play_ground" placeholder="" required>
+
+					</fieldset>
+
+					<!-- Create 'Add Team' and 'Cancel' buttons -->
+					<input type="submit" value="Add Team" name="Add_Team" class="btn btn-primary" style="margin:.5rem;">
+					<input class="btn" type="button" value="Cancel" onClick="browseTeams()"> 
+				</form>
+		</div><!--Add Team-->
+
+
+		<div id="browse">
+				
+			<table border="1" cellpadding="6">
+					
+				<thead>
+					<tr>							
+						<th scope="col" data-field="Team ID" data-filter-control="input">Team ID</th>							
+						<th scope="col" data-field="First Name" data-filter-control="input">Team Name</th>							
+						<th scope="col" data-field="Last Name" data-filter-control="input">Play Ground</th>							
+					</tr>
+				<tbody>
+					<tr>	
+						<td> 1 </td> 	
+						<td> Real Madrid CF </td> 	
+						<td> Santiago Bernabeu Stadium </td> 	
+					</tr> 
+								
+					<tr>						
+						<td> 2 </td>               
+						<td> Manchester City </td>                    
+						<td> Etihad Stadium </td>               
+					</tr> 
+					
+					<tr>							
+						<td> 3 </td>                 
+						<td> Paris Saint Germain FC </td>                    
+						<td> Le Parc des Princes </td>                     	
+					</tr> 
+									
+			</table>   
+			<p>&nbsp;</p>
+		</div>
+	</div> <!-- End of teams content -->

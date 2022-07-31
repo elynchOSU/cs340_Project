@@ -1,0 +1,297 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@300&display=swap");
+
+/* Custom Properties */
+:root {
+  --primary-color: rgb(27, 180, 231);
+  --secondary-color: #1c3fa8;
+  --dark-color: #002240;
+  --light-color: #f4f4f4;
+  --success-color: #5cb85c;
+  --error-color: #d9534f;
+}
+
+/* Reset universal selector (Global Styling) */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  color: #333;
+  line-height: 1.5;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 64px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+table {
+  border-width: 1px;
+  padding: 2px;
+  border-color: black;
+  border-style: solid;
+
+}
+
+th {
+  border-width: 1px;
+  padding: 2px;
+  border-color: black;
+  border-style: solid;
+}
+
+td {
+  border-width: 1px;
+  padding: 2px;
+  border-color: black;
+  border-style: solid;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+h1,
+h2 {
+  font-weight: 300;
+  line-height: 1.2;
+  margin: 10px 0;
+}
+
+p {
+  margin: 10px 0;
+}
+
+img {
+  width: 100%;
+}
+
+/* Container */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow: auto; /*It will get ride of logo margin 10px space*/
+  padding: 0 40px;
+  min-height: 100vh;
+}
+
+.flex {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styling Navbar */
+
+/* Container */
+.navbar-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow: auto; /*It will get ride of logo margin 10px space*/
+  padding: 0 40px;
+}
+
+.navbar {
+  background-color: var(--primary-color);
+  color: #fff;
+  height: 70px;
+}
+
+.navbar ul {
+  display: flex;
+}
+
+.navbar a {
+  color: #fff;
+  padding: 10px;
+  margin: 0 5px;
+}
+
+.navbar a:hover {
+  border-bottom: 2px #fff solid;
+}
+
+.navbar .flex {
+  justify-content: space-between;
+}
+
+.home-container{
+  margin-bottom: 50px;
+}
+
+.home-container h1{
+  margin: 30px 0px;
+}
+
+.content ul li{
+  padding: 0px 30px 0px; 
+  list-style-type: square; 
+  list-style-position: inside;
+}
+
+.welcome{
+  margin-bottom: 30px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.home-container h2{
+  font-weight: bold;
+}
+
+/*Button styling*/
+.btn {
+  display: inline-block;
+  padding: 10px 30px;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px #fff solid;
+}
+
+.btn:hover {
+  transform: scale(0.98);
+}
+
+.bg-primary,
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.bg-secondary,
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: #fff;
+}
+
+.bg-dark,
+.btn-dark {
+  background-color: var(--dark-color);
+  color: #fff;
+}
+.bg-light,
+.btn-light {
+  background-color: var(--light-color);
+  color: #333;
+}
+
+.bg-primary a,
+.btn-primary a,
+.bg-secondary a,
+.btn-secondary a,
+.bg-dark a,
+.btn-dark a {
+  color: #fff;
+}
+
+/* Form */
+.form-control {
+  margin: 8px 7px;
+}
+
+form:nth-child(1) label{
+  margin-left: 10px;
+}
+
+form legend{
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+}
+
+.form-control input[type="text"],
+.form-control input[type="email"] {
+  border: 0;
+  border-bottom: 1px solid #b4becb;
+  width: 100%;
+  padding: 3px;
+  font-size: 16px;
+}
+
+.form-control input:focus {
+  outline: none;
+}
+
+/* Footer Styling*/
+.footer {
+  background-color: var(--primary-color);
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  width:100%;
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.players-container{
+  max-width: 1500px;
+  width: 100;
+  margin-right: 100px;
+  margin-left: 100px;
+}
+
+
+
+/* Styling sections goes here ... */
+.players-container,
+.matches-container{
+  max-width: 1500px;
+  width: 100;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+
+
+/* Media queries -- Tablets and under */
+@media (max-width: 768px) {
+
+}
+
+/* Media queries -- Mobile */
+@media (max-width: 500px) {
+  .navbar {
+    height: 130px;
+  }
+
+  .navbar{
+    height: 148px;
+  }
+
+  .navbar .flex {
+    flex-direction: column;
+  }
+
+  .navbar ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+
+  .navbar ul li:hover{
+    background-color: var(--dark-color);
+  }
+
+  .navbar a:hover {
+    border-bottom: none;
+  }
+
+}

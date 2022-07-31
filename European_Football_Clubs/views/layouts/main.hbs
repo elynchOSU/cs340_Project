@@ -1,0 +1,47 @@
+<!--
+Citation for the following file:
+Date: 7/26/2022
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%208%20-%20Dynamically%20Updating%20Data/views/layouts/main.hbs
+-->
+
+<!-- main.hbs-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@300&display=swap">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" type="image/jpg" sizes="32x32" href="./images/favicon.jpg"/>
+    <title>European Football Clubs</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="navbar-container flex">
+                <h1 class="logo">European Football Clubs</h1>
+                <nav>
+                    <ul>
+                        <li><a href="home">Home</a></li>
+                        <li><a href="teams">Teams</a></li>
+                        <li><a href="players">Players</a></li>
+                        <li><a href="trophies">Trophies</a></li>
+                        <li><a href="coaches">Coaches</a></li>
+                        <li><a href="owners">Owners</a></li>
+                        <li><a href="matches">Matches</a></li>
+                    </ul>
+                </nav>
+            </div>
+    </div> <!-- End of Navbar -->
+    {{{body}}}
+
+    <footer> <!-- Footer starts here -->
+    <div class="footer">
+        <p>Erik Lynch & Abdifatah Mohamed ❤️ © 2022. All Rights Reserved.</p>
+    </div>
+    </footer> <!-- Footer ends here -->
+</body>
+</html>
