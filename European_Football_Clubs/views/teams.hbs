@@ -1,57 +1,53 @@
-	<div class="container"> <!-- Teams content -->
-		<h1>Teams</h1> 
-		<br>
-		<div id="insert">
-				<!-- form to INSERT new data into Teams-->
-				<form id="insertTeam" action="/teams" method="post" width=50%>
-					<legend><strong>Add Team</strong></legend>
-					<fieldset>
-						
-						<label for="make">Team Name</label>
-						<input type="text" class="form-control" id="team_name" name="team_name" placeholder="" required>
-
-						<label for="make">Play Ground</label>
-						<input type="text" class="form-control" id="play_ground" name="play_ground" placeholder="" required>
-
-					</fieldset>
-
-					<!-- Create 'Add Team' and 'Cancel' buttons -->
-					<input type="submit" value="Add Team" name="Add_Team" class="btn btn-primary" style="margin:.5rem;">
-					<input class="btn" type="button" value="Cancel" onClick="browseTeams()"> 
-				</form>
-		</div><!--Add Team-->
 
 
-		<div id="browse">
-				
-			<table border="1" cellpadding="6">
-					
-				<thead>
-					<tr>							
-						<th scope="col" data-field="Team ID" data-filter-control="input">Team ID</th>							
-						<th scope="col" data-field="First Name" data-filter-control="input">Team Name</th>							
-						<th scope="col" data-field="Last Name" data-filter-control="input">Play Ground</th>							
-					</tr>
-				<tbody>
-					<tr>	
-						<td> 1 </td> 	
-						<td> Real Madrid CF </td> 	
-						<td> Santiago Bernabeu Stadium </td> 	
-					</tr> 
-								
-					<tr>						
-						<td> 2 </td>               
-						<td> Manchester City </td>                    
-						<td> Etihad Stadium </td>               
-					</tr> 
-					
-					<tr>							
-						<td> 3 </td>                 
-						<td> Paris Saint Germain FC </td>                    
-						<td> Le Parc des Princes </td>                     	
-					</tr> 
-									
-			</table>   
-			<p>&nbsp;</p>
-		</div>
-	</div> <!-- End of teams content -->
+<!-- teams.hbs -->
+<h1>Teams</h1>
+<p>View or Add Teams</p>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+{{!-- Create a table --}}
+<table id="team-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            
+            <th>Team ID</th>
+			<th>Team Name</th>
+			<th>Playing Ground</th>
+            
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr data-value={{this.team_id}}>
+            <td>{{this.team_id}}</td>
+            <td>{{this.team_name}}</td>
+            <td>{{this.play_ground}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{!-- Form to add a record to the table  --}}
+<h2>Add a Team</h2>
+<p>To add a new team, please enter the information below and click 'Submit'</p>
+<form id="add-team-form-ajax">
+    <label for="input-name">Name: </label>
+    <input type="text" name="input-name" id="input-name">
+    
+    <label for="input-play_ground">Playing Ground: </label>
+    <input type="text" name="input-play_ground" id="input-play_ground">
+
+    <input type="Submit">
+</form>
+
+<script src="./js/add_team.js"></script>
+
