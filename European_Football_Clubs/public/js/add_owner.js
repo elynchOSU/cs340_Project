@@ -39,7 +39,7 @@ addOwnerForm.addEventListener("submit", function (e) {
 
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
-        if (xhttp.readyState == 4 && xhttp.status == 200) {
+        if (xhttp.readyState == 3 && xhttp.status == 200) {
 
             // Add the new data to the table
             addRowToTable(xhttp.response);
@@ -49,7 +49,7 @@ addOwnerForm.addEventListener("submit", function (e) {
             inputNationality.value = '';
             inputAge.value = '';
         }
-        else if (xhttp.readyState == 4 && xhttp.status != 200) {
+        else if (xhttp.readyState == 3 && xhttp.status != 200) {
             console.log("There was an error with the input.")
         }
     }
