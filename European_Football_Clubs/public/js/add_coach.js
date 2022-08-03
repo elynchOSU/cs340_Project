@@ -6,45 +6,52 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/St
 */
 
 // Get the objects we need to modify
-let addTeamForm = document.getElementById('add-team-form-ajax');
+let addTrophyForm = document.getElementById('add-coach-form-ajax');
 
 // Modify the objects we need
-addTeamForm.addEventListener("submit", function (e) {
+addTrophyForm.addEventListener("submit", function (e) {
     
     // Prevent the form from submitting
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputTeamName = document.getElementById("input-name");
-    let inputPlayGround = document.getElementById("input-play_ground");
+    let inputCoachName = document.getElementById("input-name");
+    let inputHeadCoach = document.getElementById("input-is_head_coach");
+    let inputTeamId = document.getElementById("mySelect");
 
     // Get the values from the form fields
-    let teamNameValue = inputTeamName.value;
-    let playGroundValue = inputPlayGround.value;
+    let coachNameValue = inputCoachName.value;
+    let teamId = inputTeamId.value;
+    let headCoachValue = inputHeadCoach.value;
 
     // Put our data we want to send in a javascript object
     let data = {
-        team_name: teamNameValue,
-        play_ground: playGroundValue
+        coach_name: coachNameValue,
+        team_id: teamId,
+        is_head_coach: headCoachValue
+        
     }
     
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/add-team-ajax", true);
+    xhttp.open("POST", "/add-coach-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
-        if (xhttp.readyState == 3 && xhttp.status == 200) {
+        console.log(inputTeamId)
+        console.log(xhttp.readyState)
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // Add the new data to the table
             addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
-            inputTeamName.value = '';
-            inputPlayGround.value = '';
+            inputCoachName.value = '';
+            inputHeadCoach.value = '';
+            inputTeamId = '';
         }
-        else if (xhttp.readyState == 3 && xhttp.status != 200) {
+        else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
         }
     }
@@ -60,7 +67,7 @@ addTeamForm.addEventListener("submit", function (e) {
 addRowToTable = (data) => {
 
     // Get a reference to the current table on the page and clear it out.
-    let currentTable = document.getElementById("team-table");
+    let currentTable = document.getElementById("coach-table");
 
     // Get the location where we should insert the new row (end of table)
     let newRowIndex = currentTable.rows.length;
@@ -68,24 +75,26 @@ addRowToTable = (data) => {
     // Get a reference to the new row from the database query (last object)
     let parsedData = JSON.parse(data);
 
-    // THIS LINE IS THE PROBLEM
     let newRow = parsedData[parsedData.length - 1]
 
     // Create a row and 4 cells
     let row = document.createElement("TR");
     let idCell = document.createElement("TD");
-    let teamNameCell = document.createElement("TD");
-    let playGroundCell = document.createElement("TD");
+    let coachNameCell = document.createElement("TD");
+    let teamCell = document.createElement("TD");
+    let headCoachCell = document.createElement("TD");
 
     // Fill the cells with correct data
-    idCell.innerText = newRow.team_id;
-    teamNameCell.innerText = newRow.team_name;
-    playGroundCell.innerText = newRow.play_ground;
+    idCell.innerText = newRow.trophy_id;
+    coachNameCell.innerText = newRow.coach_name;
+    teamCell.innerText = newRow.team_id;
+    headCoachCell.innerText = newRow.is_head_coach;
 
     // Add the cells to the row 
     row.appendChild(idCell);
-    row.appendChild(teamNameCell);
-    row.appendChild(playGroundCell);
+    row.appendChild(coachNameCell);
+    row.appendChild(teamCell);
+    row.appendChild(headCoachCell);
 
     // Add a row attribute so the deleteRow function can find a newly added row
     row.setAttribute('data-value', newRow.id);
@@ -93,12 +102,6 @@ addRowToTable = (data) => {
     // Add the row to the table
     currentTable.appendChild(row);
 
-    // Find drop down menu, create a new option, fill data in the option (full name, id),
-    // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
-    let selectMenu = document.getElementById("mySelect");
-    let option = document.createElement("option");
-    option.text = newRow.team_name;
-    option.value = newRow.team_id;
-    selectMenu.add(option);
+
     // End of new step 8 code.
 }

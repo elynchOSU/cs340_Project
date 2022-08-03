@@ -1,74 +1,62 @@
-    <div class="container"> <!-- Trophies content -->
 
-		<h1>Trophies</h1> 
 
-	<br>
+<!-- teams.hbs -->
+<h1>Trophies</h1>
+<p>View or Add Trophy</p>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-	<div id="insert">
-			<!-- form to INSERT new data into Trophies-->
-			<form id="insertTrophy" action="/trophy" method="post" width=50%>
-				<legend><strong>Add Trophy</strong></legend>
-				<fieldset>
-					
-					<label for="make">Trophy Name</label>
-					<input type="text" class="form-control" id="trophy_name" name="trophy_name" placeholder="" required>
+{{!-- Create a table --}}
+<table id="trophy-table">
 
-                    <label for="make">Year</label>
-					<input type="number" class="form-control" id="trophy_year" name="trophy_year" placeholder="" required>
+    {{!-- Header section --}}
+    <thead>
 
-                    <label> Winning Team </label> <select name="team_name">
-                        <option value="0">&nbsp;</option>
-                        <option value="1">Real Madrid CF</option>
-                        <option value="2">Manchester City</option>
-                        <option value="3">Paris Saint Germain FC</option>
-                        </select>
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            
+            <th>Trophy ID</th>
+			<th>Trophy Name</th>
+			<th>Year</th>
+            <th>Winner</th>
+        </tr>
+    </thead>
 
-                
-                </fieldset>
+    {{!-- Body section --}}
+    <tbody>
 
-		        <!-- Create 'Add Trophy' and 'Cancel' buttons -->
-				<input type="submit" value="Add Trophy" name="Add_Trophy" class="btn btn-primary" style="margin:.5rem;">
-				<input class="btn" type="button" value="Cancel" onClick="browseTrophies()"> 
-			</form>
-	</div><!--Add Trophy-->
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr data-value={{this.trophy_id}}>
+			<td>{{this.trophy_id}}</td>
+            <td>{{this.trophy_name}}</td>
+            <td>{{this.trophy_year}}</td>
+            <td>{{this.team_name}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
 
-    <div id="browse">
-			
-		<table border="1" cellpadding="6">
-				
-			<thead>
-				<tr>							
-				    <th scope="col" data-field="Trophy ID" data-filter-control="input">Trophy ID</th>							
-				    <th scope="col" data-field="Trophy Name" data-filter-control="input">Trophy Name</th>							
-					<th scope="col" data-field="Trophy Year" data-filter-control="input">Year</th>	
-                    <th scope="col" data-field="Team ID" data-filter-control="input">Winner</th>	
-							
-                </tr>
-			<tbody>
-				<tr>	
-					<td> 1 </td> 	
-					<td> Community Shield </td> 	
-					<td> 2019 </td> 	
-                    <td> Manchester City </td>
-				</tr> 
-							
-				<tr>						
-					<td> 2 </td> 	
-					<td> League Cup </td> 	
-					<td> 2021 </td> 	
-                    <td> Manchester City </td>
-         
-                </tr> 
-                
-                <tr>							
-                    <td> 3 </td> 	
-					<td> England FA Cup </td> 	
-					<td> 2022</td> 	
-                    <td> Real Madrid CF </td>                   	
-                </tr> 
-							 	 
-		</table>   
-	    <p>&nbsp;</p>
-	</div>
+{{!-- Form to add a record to the table  --}}
+<h2>Add a Trophy</h2>
+<p>To add a new trophy, please enter the information below and click 'Submit'</p>
+<form id="add-trophy-form-ajax">
+    <label for="input-name">Name: </label>
+    <input type="text" name="input-name" id="input-name">
     
-    </div> <!-- End of trophies content -->
+    <label for="input-year">Year: </label>
+    <input type="number" name="input-year" id="input-year">
+
+	<label for="input-team_id">Winner: </label>
+    <select name="input-team_id" id="mySelect">
+        <option value="test">Select a Team</option>
+        {{#each teams}}
+        <option value="{{this.team_id}}">{{this.team_name}}</option>
+        {{/each}}
+    </select>
+
+    <input type="Submit">
+</form>
+
+<script src="./js/add_trophy.js"></script>
+

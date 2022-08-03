@@ -52,17 +52,71 @@ app.get('/owners', function(req, res)
     })                                                      // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
 
-app.get('/coaches', (req, res) => {
-    res.render('coaches')
-})
+app.get('/coaches', function(req, res)
+{  
+    let query1 = `SELECT * FROM Coaches 
+    JOIN Teams ON Coaches.team_id = Teams.team_id 
+    ORDER BY coach_id ASC;`;
 
-app.get('/players', (req, res) => {
-    res.render('players')
-})
+    let query2 = `SELECT * FROM Teams ORDER BY team_name ASC;`;
 
-app.get('/trophies', (req, res) => {
-    res.render('trophies')
-})
+    // Execute the first query
+    db.pool.query(query1, function(error, rows, fields){    
+
+        // Store query results
+        let coaches = rows;
+
+        db.pool.query(query2, (error, rows, fields) => {
+            let teams = rows;
+            res.render('coaches', {data: coaches, teams: teams}); 
+        })
+                         // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});                                                         // received back from the query
+
+app.get('/players', function(req, res)
+{  
+    let query1 = `SELECT * FROM Players 
+    JOIN Teams ON Players.team_id = Teams.team_id 
+    ORDER BY player_id ASC;`;
+
+    let query2 = `SELECT * FROM Teams ORDER BY team_name ASC;`;
+
+    // Execute the first query
+    db.pool.query(query1, function(error, rows, fields){    
+
+        // Store query results
+        let players = rows;
+
+        db.pool.query(query2, (error, rows, fields) => {
+            let teams = rows;
+            res.render('players', {data: players, teams: teams}); 
+        })
+                         // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});                                                         // received back from the query
+
+app.get('/trophies', function(req, res)
+{  
+    let query1 = `SELECT * FROM Trophies 
+    JOIN Teams ON Trophies.team_id = Teams.team_id 
+    ORDER BY trophy_year DESC;`;
+
+    let query2 = `SELECT * FROM Teams ORDER BY team_name ASC;`;
+
+    // Execute the first query
+    db.pool.query(query1, function(error, rows, fields){    
+
+        // Store query results
+        let trophies = rows;
+
+        db.pool.query(query2, (error, rows, fields) => {
+            let teams = rows;
+            res.render('trophies', {data: trophies, teams: teams}); 
+        })
+                         // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});                                                         // received back from the query
 
 app.get('/matches', (req, res) => {
     res.render('matches')
@@ -103,6 +157,135 @@ app.post('/add-team-ajax', function(req, res){
         {
             // If there was no error, perform a SELECT * on owners
             query2 = `SELECT team_id, team_name, play_ground FROM Teams ORDER BY team_name ASC;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+})
+
+// Create a new Trophy    
+app.post('/add-trophy-ajax', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+    let teamID = parseInt(data.team_id);
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Trophies (trophy_name, trophy_year, team_id)
+    VALUES ("${data.trophy_name}", ${data.trophy_year}, ${teamID});`;
+
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else
+        {
+            // If there was no error, perform a SELECT * on trophies
+            query2 = `SELECT * FROM Trophies ORDER BY trophy_year DESC;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+})
+
+// Create a new Coach    
+app.post('/add-coach-ajax', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+    let teamID = parseInt(data.team_id);
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Coaches (coach_name, team_id, is_head_coach)
+    VALUES ("${data.coach_name}", ${teamID}, ${data.is_head_coach});`;
+
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else
+        {
+            // If there was no error, perform a SELECT * on coaches
+            query2 = `SELECT * FROM Coaches ORDER BY coach_id ASC;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+})
+
+// Create a new Player    
+app.post('/add-player-ajax', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+    let teamID = parseInt(data.team_id);
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Players (player_name, player_age, position, salary, jersey_number, team_id)
+    VALUES ("${data.player_name}", ${data.player_age}, ${data.position}, ${data.salary}, ${data.jersey_number}, ${teamID});`;
+
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else
+        {
+            // If there was no error, perform a SELECT * on coaches
+            query2 = `SELECT * FROM Players ORDER BY player_id ASC;`;
             db.pool.query(query2, function(error, rows, fields){
 
                 // If there was an error on the second query, send a 400

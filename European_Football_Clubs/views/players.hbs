@@ -1,147 +1,77 @@
-    <div class="players-container"> <!-- Players content -->
-    <h1>Players</h1> 
 
-	<br>
 
-	<div id="insert">
-			<!-- form to INSERT new data into Users-->
-			<form id="insertPlayer" action="/player" method="post" width=50%>
-				<legend><strong>Add Player</strong></legend>
-				<fieldset class="flex-players">
-					
-					<label for="make">Player Name</label>
-					<input type="text" class="form-control" id="player_name" name="player_name" placeholder="" required>
+<!-- players.hbs -->
+<h1>Players</h1>
+<p>View or Add a Player</p>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-					<label for="make">Player Age</label>
-					<input type="number" class="form-control" id="player_age" name="player_age" placeholder="" required>
+{{!-- Create a table --}}
+<table id="player-table">
 
-                    <label for="make">Position</label>
-					<input type="text" class="form-control" id="position" name="position" placeholder="" required>
+    {{!-- Header section --}}
+    <thead>
 
-                    <label for="make">Salary</label>
-					<input type="number" class="form-control" id="salary" name="salary" placeholder="" required>
-
-                    <label for="make">Jersey Number</label>
-					<input type="number" class="form-control" id="jersey_number" name="jersey_number" placeholder="" required>
-				
-                    <label> Team </label> <select name="team_name">
-                        <option value="0">&nbsp;</option>
-                        <option value="1">Real Madrid CF</option>
-                        <option value="2">Manchester City</option>
-                        <option value="3">Paris Saint Germain FC</option>
-                        </select>
-
-                </fieldset>
-
-		        <!-- Create 'Add Player' and 'Cancel' buttons -->
-				<input type="submit" value="Add Player" name="Add_Player" class="btn btn-primary" style="margin:.5rem;">
-				<input class="btn" type="button" value="Cancel" onClick="browsePlayers()"> 
-			</form>
-	</div><!--Add Player-->
-
-    <div id="edit">
-        <form id="editPlayer" action="/player" method="put" width=50%>
-            <legend><strong>Edit Player</strong></legend>
-            <fieldset class="flex-players">
-                
-                <label for="make">Player Name</label>
-                <select name="player_name">
-                    <option value="0">&nbsp;</option>
-                    <option value="1">Karim Benzema</option>
-                    <option value="2">Kevin De Bruyne</option>
-                    <option value="3">Kylian Mbappe</option>
-                </select>
-
-                <label for="make">Player Age</label>
-                <input type="number" class="form-control" id="player_age" name="player_age" placeholder="" required>
-
-                <label for="make">Position</label>
-                <input type="text" class="form-control" id="position" name="position" placeholder="" required>
-
-                <label for="make">Salary</label>
-                <input type="number" class="form-control" id="salary" name="salary" placeholder="" required>
-
-                <label for="make">Jersey Number</label>
-                <input type="number" class="form-control" id="jersey_number" name="jersey_number" placeholder="" required>
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
             
-                <label> Team </label> <select name="team_name">
-                    <option value="0">&nbsp;</option>
-                    <option value="1">Real Madrid CF</option>
-                    <option value="2">Manchester City</option>
-                    <option value="3">Paris Saint Germain FC</option>
-                    </select>
+            <th>Player ID</th>
+			<th>Name</th>
+			<th>Age</th>
+            <th>Position</th>
+            <th>Salary</th>
+            <th>Jersey Number</th>
+            <th>Team</th>
+        </tr>
+    </thead>
 
-            </fieldset>
+    {{!-- Body section --}}
+    <tbody>
 
-            <!-- Create 'Edit Player' and 'Cancel' buttons -->
-            <input type="submit" value="Edit Player" name="Edit_Player" class="btn btn-primary" style="margin:.5rem;">
-            <input class="btn" type="button" value="Cancel" onClick="browsePlayers()"> 
-        </form>
-    </div><!-- Edit Player -->
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr data-value={{this.player_id}}>
+			<td>{{this.player_id}}</td>
+            <td>{{this.player_name}}</td>
+            <td>{{this.player_age}}</td>
+            <td>{{this.position}}</td>
+            <td>{{this.salary}}</td>
+            <td>{{this.jersey_number}}</td>
+            <td>{{this.team_name}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
 
-    <div id="delete">
-        <form id="insertPlayer" action="/player" method="delete" width=50%>
-            <legend><strong>Delete Player</strong></legend>
-            <fieldset>
-                
-                <label for="make">Player Name</label>
-                <select name="player_name">
-                    <option value="0">&nbsp;</option>
-                    <option value="1">Karim Benzema</option>
-                    <option value="2">Kevin De Bruyne</option>
-                    <option value="3">Kylian Mbappe</option>
-                    </select>
+{{!-- Form to add a record to the table  --}}
+<h2>Add a Player</h2>
+<p>To add a new player, please enter the information below and click 'Submit'</p>
+<form id="add-player-form-ajax">
+    <label for="input-name">Name: </label>
+    <input type="text" name="input-name" id="input-name">
 
-            </fieldset>
+    <label for="input-age">Age: </label>
+    <input type="number" name="input-age" id="input-age">
 
-            <!-- Create 'Delete Player' and 'Cancel' buttons -->
-            <input type="submit" value="Delete Player" name="Delete_Player" class="btn btn-primary" style="margin:.5rem;">
-            <input class="btn" type="button" value="Cancel" onClick="browsePlayers()"> 
-        </form>
-    </div><!-- Edit Player -->
+    <label for="input-position">Position: </label>
+    <input type="text" name="input-position" id="input-position">
 
-    <div id="browse">
-			
-		<table border="1" cellpadding="6">
-				
-			<thead>
-				<tr>							
-				    <th scope="col" data-field="Player ID" data-filter-control="input">Player ID</th>							
-				    <th scope="col" data-field="Player Name" data-filter-control="input">Player Name</th>							
-					<th scope="col" data-field="Player Age" data-filter-control="input">Player Age</th>	
-                    <th scope="col" data-field="Position" data-filter-control="input">Position</th>	
-                    <th scope="col" data-field="Salary" data-filter-control="input">Salary</th>	
-                    <th scope="col" data-field="Jersey Number" data-filter-control="input">Jersey Number</th>							
-                </tr>
-			<tbody>
-				<tr>	
-					<td> 1 </td> 	
-					<td> Karim Benzema </td> 	
-					<td> 34 </td> 	
-                    <td> Center Forward </td>
-                    <td> 24000000 </td>
-                    <td> 9 </td>
-				</tr> 
-							
-				<tr>						
-					<td> 2 </td> 	
-					<td> Kevin De Bruyne </td> 	
-					<td> 31 </td> 	
-                    <td> Midfielder </td>
-                    <td> 20800000 </td>
-                    <td> 17 </td>            
-                </tr> 
-                
-                <tr>							
-                    <td> 3 </td> 	
-					<td> Kylian Mbappe </td> 	
-					<td> 23 </td> 	
-                    <td> Center Forward </td>
-                    <td> 90910000 </td>
-                    <td> 7 </td>                   	
-                </tr> 
-							 	 
-		</table>   
-	    <p>&nbsp;</p>
-	</div>
-    </div> <!-- End of players content -->
+    <label for="input-salary">Salary: </label>
+    <input type="number" name="input-salary" id="input-salary">
+
+    <label for="input-jersey_number">Jersey Number: </label>
+    <input type="number" name="input-jersey_number" id="input-jersey_number">
+
+	<label for="input-team_id">Team: </label>
+    <select name="input-team_id" id="mySelect">
+        <option value="test">Select a Team</option>
+        {{#each teams}}
+        <option value="{{this.team_id}}">{{this.team_name}}</option>
+        {{/each}}
+    </select>
+
+    <input type="Submit">
+</form>
+
+<script src="./js/add_player.js"></script>
+
