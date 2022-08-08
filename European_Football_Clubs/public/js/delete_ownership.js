@@ -5,10 +5,10 @@ Adapted from:
 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%208%20-%20Dynamically%20Updating%20Data/public/js/delete_person.js
 */
 
-function deleteOwner(ownerID) {
-    let link = '/delete-owner-ajax/';
+function deleteOwnership(ownershipID) {
+    let link = '/delete-ownership-ajax/';
     let data = {
-      owner_id: ownerID
+      ownership_id: ownershipID
     };
   
     // Execute Deletion based on provided ID
@@ -19,17 +19,18 @@ function deleteOwner(ownerID) {
       contentType: "application/json; charset=utf-8",
       success: function(result) {
         // Call function to update UI
-        deleteRow(data.owner_id);
+        deleteRow(data.ownership_id);
       }
     });
   }
   
   // Update UI with row removal
-  function deleteRow(ownerID){
-      let table = document.getElementById("owner-table");
+  function deleteRow(ownershipID){
+      let table = document.getElementById("ownership-table");
       for (let i = 0, row; row = table.rows[i]; i++) {
-         //iterate through rows
-         if (table.rows[i].getAttribute("data-value") == ownerID) {
+
+         // Iterate through rows
+         if (table.rows[i].getAttribute("data-value") == ownershipID) {
               table.deleteRow(i);
               break;
          }

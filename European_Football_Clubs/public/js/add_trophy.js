@@ -38,8 +38,7 @@ addTrophyForm.addEventListener("submit", function (e) {
 
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
-        console.log(inputTeamId)
-        console.log(xhttp.readyState)
+
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // Add the new data to the table
@@ -84,10 +83,10 @@ addRowToTable = (data) => {
     let teamCell = document.createElement("TD");
 
     // Fill the cells with correct data
-    idCell.innerText = newRow.trophy_id;
-    trophyNameCell.innerText = newRow.trophy_name;
-    yearCell.innerText = newRow.trophy_year;
-    teamCell.innerText = newRow.team_id
+    idCell.innerText = newRow.ID;
+    trophyNameCell.innerText = newRow.Trophy;
+    yearCell.innerText = newRow.Year;
+    teamCell.innerText = newRow.Victor;
 
     // Add the cells to the row 
     row.appendChild(idCell);

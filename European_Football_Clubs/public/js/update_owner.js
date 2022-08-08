@@ -5,16 +5,16 @@ Adapted from:
 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%208%20-%20Dynamically%20Updating%20Data/public/js/update_person.js
 */
 
-// Get the objects we need to modify
+// Get the objects to modify
 let updateOwnerForm = document.getElementById('update-owner-form-ajax');
 
-// Modify the objects we need
+// Modify the objects
 updateOwnerForm.addEventListener("submit", function (e) {
    
     // Prevent the form from submitting
     e.preventDefault();
 
-    // Get form fields we need to get data from
+    // Get form fields to get data from
     let inputOwnerID = document.getElementById("mySelect");
     let inputAge = document.getElementById("input-age-update");
 
@@ -22,33 +22,35 @@ updateOwnerForm.addEventListener("submit", function (e) {
     let ownerIdValue = inputOwnerID.value;
     let ageValue = inputAge.value;
     
-    // currently the database table for bsg_people does not allow updating values to NULL
-    // so we must abort if being bassed NULL for homeworld
+    // Abort if being bassed NULL for Age - DB does not allow NULL Age value
 
     if (isNaN(ageValue)) 
     {
         return;
     }
 
-    // Put our data we want to send in a javascript object
+    // Put data we want to send in a javascript object
     let data = {
         owner_id: ownerIdValue,
         owner_age: ageValue,
     }
     
-    // Setup our AJAX request
+    // Setup AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("PUT", "/put-owner-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Tell our AJAX request how to resolve
+    // Tell AJAX request how to resolve
     xhttp.onreadystatechange = () => {
-        console.log(inputOwnerID)
+        
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // Add the new data to the table
             updateRow(xhttp.response, ownerIdValue);
-
+            
+            // Clear the input fields for another transaction
+            inputOwnerID.value = '';
+            inputAge.value = '';
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -63,7 +65,7 @@ updateOwnerForm.addEventListener("submit", function (e) {
 
 function updateRow(data, ownerId){
     let parsedData = JSON.parse(data);
-    console.log(parsedData);
+
     let table = document.getElementById("owner-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {

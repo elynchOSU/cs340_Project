@@ -1,0 +1,71 @@
+{{!--
+Citation for the following file:
+Date: 7/26/2022
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%208%20-%20Dynamically%20Updating%20Data/views/index.hbs
+--}}
+
+<!-- team_ownerships.hbs -->
+<h1>Team Ownerships</h1>
+<p>View, Add, Edit, or Delete Team Ownerships</p>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+{{!-- Create a table --}}
+<table id="ownership-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For the first row, print each key of the row object as a header cell --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th class="noBorder"></th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the ID, Team, and Owner, in order --}}
+        {{#each data}}
+        <tr data-value={{this.ID}}>
+            <td>{{this.ID}}</td>
+            <td>{{this.Team}}</td>
+            <td>{{this.Owner}}</td>
+            <td class="noBorder"><button class="btn" onclick="deleteOwnership({{this.ID}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<script src="./js/delete_ownership.js"></script>
+
+{{!-- Form to add a Team Ownership record to the table  --}}
+<h2>Add a Team Ownership</h2>
+<p>To add a new ownership, please enter the information below and click 'Submit'</p>
+<form id="add-ownership-form-ajax">
+    <label for="input-team_id">Team: </label>
+    <select name="input-team_id" id="mySelectTeam">
+        <option value="test">Select a Team</option>
+        {{#each teams}}
+        <option value="{{this.team_id}}">{{this.team_name}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-name">Owner name: </label>
+    <select name="input-name" id="mySelectOwner">
+        <option value="test">Select an Owner</option>
+        {{#each owners}}
+        <option value="{{this.owner_id}}">{{this.owner_name}}</option>
+        {{/each}}
+    </select>
+
+    <input class="btn" type="Submit">
+</form>
+
+<script src="./js/add_ownership.js"></script>
+

@@ -1,6 +1,11 @@
+{{!--
+Citation for the following file:
+Date: 7/26/2022
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%208%20-%20Dynamically%20Updating%20Data/views/index.hbs
+--}}
 
-
-<!-- teams.hbs -->
+<!-- trophies.hbs -->
 <h1>Trophies</h1>
 <p>View or Add Trophy</p>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -11,27 +16,26 @@
     {{!-- Header section --}}
     <thead>
 
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
+        {{!-- For the first row, print each key of the row object as a header cell --}}
         <tr>
-            
-            <th>Trophy ID</th>
-			<th>Trophy Name</th>
-			<th>Year</th>
-            <th>Winner</th>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
         </tr>
     </thead>
 
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the ID, Trophy, Year, and Victor, in order --}}
         {{#each data}}
-        <tr data-value={{this.trophy_id}}>
-			<td>{{this.trophy_id}}</td>
-            <td>{{this.trophy_name}}</td>
-            <td>{{this.trophy_year}}</td>
-            <td>{{this.team_name}}</td>
+        <tr data-value={{this.ID}}>
+			<td>{{this.ID}}</td>
+            <td>{{this.Trophy}}</td>
+            <td>{{this.Year}}</td>
+            <td>{{this.Victor}}</td>
         </tr>
         {{/each}}
     </tbody>
@@ -55,7 +59,7 @@
         {{/each}}
     </select>
 
-    <input type="Submit">
+    <input class="btn" type="Submit">
 </form>
 
 <script src="./js/add_trophy.js"></script>

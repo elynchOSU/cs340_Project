@@ -1,6 +1,11 @@
+{{!--
+Citation for the following file:
+Date: 7/26/2022
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%208%20-%20Dynamically%20Updating%20Data/views/index.hbs
+--}}
 
-
-<!-- teams.hbs -->
+<!-- coaches.hbs -->
 <h1>Coaches</h1>
 <p>View or Add a Coach</p>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -11,33 +16,32 @@
     {{!-- Header section --}}
     <thead>
 
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
+        {{!-- For the first row, print each key of the row object as a header cell --}}
         <tr>
-            
-            <th>Coach ID</th>
-			<th>Coach Name</th>
-			<th>Team</th>
-            <th>Head Coach?</th>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
         </tr>
     </thead>
 
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the ID, Name, Team, and Role, in order --}}
         {{#each data}}
-        <tr data-value={{this.trophy_id}}>
-			<td>{{this.coach_id}}</td>
-            <td>{{this.coach_name}}</td>
-            <td>{{this.team_name}}</td>
-            <td>{{this.is_head_coach}}</td>
+        <tr data-value={{this.ID}}>
+			<td>{{this.ID}}</td>
+            <td>{{this.Name}}</td>
+            <td>{{this.Team}}</td>
+            <td>{{this.Role}}</td>
         </tr>
         {{/each}}
     </tbody>
 </table>
 
-{{!-- Form to add a record to the table  --}}
+{{!-- Form to add a Coach record to the table  --}}
 <h2>Add a Coach</h2>
 <p>To add a new coach, please enter the information below and click 'Submit'</p>
 <form id="add-coach-form-ajax">
@@ -52,10 +56,10 @@
         {{/each}}
     </select>
         
-    <label for="input-is_head_coach">Head Coach?: </label>
-    <input type="number" name="input-is_head_coach" id="input-is_head_coach">
+    <label for="input-role">Role: </label>
+    <input type="text" name="input-role" id="input-role">
 
-    <input type="Submit">
+    <input class="btn" type="Submit">
 </form>
 
 <script src="./js/add_coach.js"></script>

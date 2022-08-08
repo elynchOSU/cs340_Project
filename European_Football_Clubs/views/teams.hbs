@@ -1,4 +1,9 @@
-
+{{!--
+Citation for the following file:
+Date: 7/26/2022
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%208%20-%20Dynamically%20Updating%20Data/views/index.hbs
+--}}
 
 <!-- teams.hbs -->
 <h1>Teams</h1>
@@ -11,32 +16,31 @@
     {{!-- Header section --}}
     <thead>
 
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
+        {{!-- For the first row, print each key of the row object as a header cell --}}
         <tr>
-            
-            <th>Team ID</th>
-			<th>Team Name</th>
-			<th>Playing Ground</th>
-            
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
         </tr>
     </thead>
 
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the ID, Name, and Grounds, in order --}}
         {{#each data}}
-        <tr data-value={{this.team_id}}>
-            <td>{{this.team_id}}</td>
-            <td>{{this.team_name}}</td>
-            <td>{{this.play_ground}}</td>
+        <tr data-value={{this.ID}}>
+            <td>{{this.ID}}</td>
+            <td>{{this.Name}}</td>
+            <td>{{this.Grounds}}</td>
         </tr>
         {{/each}}
     </tbody>
 </table>
 
-{{!-- Form to add a record to the table  --}}
+{{!-- Form to add a team to the table  --}}
 <h2>Add a Team</h2>
 <p>To add a new team, please enter the information below and click 'Submit'</p>
 <form id="add-team-form-ajax">
@@ -46,7 +50,7 @@
     <label for="input-play_ground">Playing Ground: </label>
     <input type="text" name="input-play_ground" id="input-play_ground">
 
-    <input type="Submit">
+    <input class="btn" type="Submit">
 </form>
 
 <script src="./js/add_team.js"></script>

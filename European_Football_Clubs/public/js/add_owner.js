@@ -25,21 +25,21 @@ addOwnerForm.addEventListener("submit", function (e) {
     let nationalityValue = inputNationality.value;
     let ageValue = inputAge.value;
 
-    // Put our data we want to send in a javascript object
+    // Put data we want to send in a javascript object
     let data = {
         owner_name: ownerNameValue,
         owner_nationality: nationalityValue,
         owner_age: ageValue
     }
     
-    // Setup our AJAX request
+    // Setup AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-owner-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Tell our AJAX request how to resolve
+    // Tell AJAX request how to resolve
     xhttp.onreadystatechange = () => {
-        if (xhttp.readyState == 3 && xhttp.status == 200) {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // Add the new data to the table
             addRowToTable(xhttp.response);
@@ -49,7 +49,7 @@ addOwnerForm.addEventListener("submit", function (e) {
             inputNationality.value = '';
             inputAge.value = '';
         }
-        else if (xhttp.readyState == 3 && xhttp.status != 200) {
+        else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
         }
     }
@@ -60,18 +60,16 @@ addOwnerForm.addEventListener("submit", function (e) {
 })
 
 
-// Creates a single row from an Object representing a single record from 
-// bsg_people
+// Creates a single row from an Object representing a single record from Owners
 addRowToTable = (data) => {
 
     // Get a reference to the current table on the page and clear it out.
     let currentTable = document.getElementById("owner-table");
 
-    // Get the location where we should insert the new row (end of table)
-    let newRowIndex = currentTable.rows.length;
-
     // Get a reference to the new row from the database query (last object)
     let parsedData = JSON.parse(data);
+
+    // Store new row data
     let newRow = parsedData[parsedData.length - 1]
 
     // Create a row and 4 cells
@@ -81,18 +79,20 @@ addRowToTable = (data) => {
     let nationalityCell = document.createElement("TD");
     let ageCell = document.createElement("TD");
 
-    let deleteCell = document.createElement("TD");
-
     // Fill the cells with correct data
-    idCell.innerText = newRow.owner_id;
-    ownerNameCell.innerText = newRow.owner_name;
-    nationalityCell.innerText = newRow.owner_nationality;
-    ageCell.innerText = newRow.owner_age;
+    idCell.innerText = newRow.ID;
+    ownerNameCell.innerText = newRow.Name;
+    nationalityCell.innerText = newRow.Nationality;
+    ageCell.innerText = newRow.Age;
 
-    deleteCell = document.createElement("button");
-    deleteCell.innerHTML = "Delete";
-    deleteCell.onclick = function(){
-        deleteOwner(newRow.id);
+    // https://stackoverflow.com/questions/15315315/how-do-i-add-a-button-to-a-td-using-js
+    let btn = document.createElement('input');
+    btn.type = "button";
+    btn.id = newRow.ID
+    btn.className = "btn";
+    btn.value = "Delete";
+    btn.onclick = function(){
+        deleteOwner(newRow.ID);
     };
 
     // Add the cells to the row 
@@ -100,10 +100,10 @@ addRowToTable = (data) => {
     row.appendChild(ownerNameCell);
     row.appendChild(nationalityCell);
     row.appendChild(ageCell);
-    row.appendChild(deleteCell);
+    row.appendChild(btn);
 
     // Add a row attribute so the deleteRow function can find a newly added row
-    row.setAttribute('data-value', newRow.id);
+    row.setAttribute('data-value', newRow.ID);
     
     // Add the row to the table
     currentTable.appendChild(row);
@@ -115,5 +115,4 @@ addRowToTable = (data) => {
     option.text = newRow.owner_name;
     option.value = newRow.owner_id;
     selectMenu.add(option);
-    // End of new step 8 code.
 }

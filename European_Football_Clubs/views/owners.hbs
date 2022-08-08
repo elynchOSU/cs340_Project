@@ -1,6 +1,11 @@
+{{!--
+Citation for the following file:
+Date: 7/26/2022
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%208%20-%20Dynamically%20Updating%20Data/views/index.hbs
+--}}
 
-
-<!-- index.hbs -->
+<!-- owners.hbs -->
 <h1>Owners</h1>
 <p>View, Add, Edit, or Delete Owners</p>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -11,29 +16,28 @@
     {{!-- Header section --}}
     <thead>
 
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
+        {{!-- For the first row, print each key of the row object as a header cell --}}
         <tr>
             {{#each data.[0]}}
             <th>
                 {{@key}}
             </th>
             {{/each}}
-            <th></th>
+            <th class="noBorder"></th>
         </tr>
     </thead>
 
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the ID, Name, Nationality, and Age, in order --}}
         {{#each data}}
-        <tr data-value={{this.owner_id}}>
-            <td>{{this.owner_id}}</td>
-            <td>{{this.owner_name}}</td>
-            <td>{{this.owner_nationality}}</td>
-            <td>{{this.owner_age}}</td>
-            <td><button onclick="deleteOwner({{this.owner_id}})">Delete</button></td>
+        <tr data-value={{this.ID}}>
+            <td>{{this.ID}}</td>
+            <td>{{this.Name}}</td>
+            <td>{{this.Nationality}}</td>
+            <td>{{this.Age}}</td>
+            <td class="noBorder"><button class="btn" onclick="deleteOwner({{this.ID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
@@ -41,7 +45,7 @@
 
 <script src="./js/delete_owner.js"></script>
 
-{{!-- Form to add a record to the table  --}}
+{{!-- Form to add an Owner record to the table  --}}
 <h2>Add an Owner</h2>
 <p>To add a new owner, please enter their information below and click 'Submit'</p>
 <form id="add-owner-form-ajax">
@@ -54,11 +58,12 @@
     <label for="input-age">Age: </label>
     <input type="number" name="input-age" id="input-age">
 
-    <input type="Submit">
+    <input class="btn" type="Submit">
 </form>
 
 <script src="./js/add_owner.js"></script>
 
+{{!-- Form to update an existing owner --}}
 <h2>Update an Owner</h2>
 <p>To update a specific owner select their name from the drop-down menu on the left and fill in the new age value.</p>
 <form id="update-owner-form-ajax">
@@ -67,86 +72,16 @@
     <select name="input-name" id="mySelect">
         <option value="test">Select an Owner</option>
         {{#each data}}
-        <option value="{{this.owner_id}}">{{this.owner_name}}</option>
+        <option value="{{this.ID}}">{{this.Name}}</option>
         {{/each}}
     </select>
 
     <label for="input-age">Age: </label>
     <input type="number" name="input-age" id="input-age-update">
 
-    <input type="submit">
+    <input class="btn" type="submit">
 
 </form>
 
 <script src="./js/update_owner.js"></script>
 
-<div class="team-ownerships"> <!-- Team ownerships content starts here -->
-    <h1>Team Ownerships</h1> 
-
-<br>
-
-<div id="insert">
-        <!-- form to INSERT new data into Team Ownership-->
-        <form id="insertTeamOwnership" action="/team_ownership" method="post" width=50%>
-            <legend><strong>Add Team Ownership</strong></legend>
-            <fieldset>
-                
-                <label for="make">Team</label>
-                <select name="team_name">
-                    <option value="0">&nbsp;</option>
-                    <option value="1">Real Madrid CF</option>
-                    <option value="2">Manchester City</option>
-                    <option value="3">Paris Saint Germain FC</option>
-                    </select>
-
-                <label for="make">Owner</label>
-                <select name="owner_name">
-                    <option value="0">&nbsp;</option>
-                    <option value="1">Socios</option>
-                    <option value="2">Sheikh Mansour</option>
-                    <option value="3">Tamim bin Hamad Al Thani</option>
-                    </select>
-
-            </fieldset>
-
-            <!-- Create 'Add Team Ownership' and 'Cancel' buttons -->
-            <input type="submit" value="Add Team Ownership" name="Add_Team_Ownership" class="btn btn-primary" style="margin:.5rem;">
-            <input class="btn" type="button" value="Cancel" onClick="browseTeamOwnerships()"> 
-        </form>
-</div><!--Add Team Ownership-->
-
-<div id="browse">
-        
-    <table border="1" cellpadding="6">
-            
-        <thead>
-            <tr>							
-                <th scope="col" data-field="Team Name" data-filter-control="input">Team Name</th>							
-                <th scope="col" data-field="Owner Name" data-filter-control="input">Owner Name</th>							
-                <th scope="col" data-field="Delete" data-filter-control="input"></th>	
-                                            
-            </tr>
-        <tbody>
-            <tr>	
-                <td> Real Madrid CF </td> 	
-                <td> Socios </td> 	
-                <td> <a href="team_ownerships.html">Delete</a> </td> 	
-
-            </tr> 
-                        
-            <tr>						
-                <td> Manchester City </td> 	
-                <td> Sheikh Mansour </td> 	
-                <td> <a href="team_ownerships.html">Delete</a> </td> 	
-            </tr> 
-            
-            <tr>							
-                <td> Paris Saint Germain FC </td> 	
-                <td> Tamim bin Hamad Al Thani</td> 	
-                <td> <a href="team_ownerships.html">Delete</a> </td> 	
-            </tr> 
-                                
-    </table>   
-    <p>&nbsp;</p>
-</div> 
-</div> <!-- End of team Ownerships content -->

@@ -1,82 +1,84 @@
-	<div class="matches-container"> <!-- Matches content -->
-		<h1>Matches</h1> 
+{{!--
+Citation for the following file:
+Date: 7/26/2022
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%208%20-%20Dynamically%20Updating%20Data/views/index.hbs
+--}}
 
-	<br>
+<!-- matches.hbs -->
+<h1>Matches</h1>
+<p>View or Add Matches</p>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-	<div id="insert">
-			<!-- form to INSERT new data into matches-->
-			<form id="insertMatch" action="/match" method="post" width=50%>
-				<legend><strong>Add Match</strong></legend>
-				<fieldset>
-					
-					<label for="make">Match Date</label>
-					<input type="date" class="form-control" id="match_date" name="match_date" placeholder="" required>
+{{!-- Create a table --}}
+<table id="match-table">
 
-                    <label> Home Team </label> <select name="home_team_name">
-                        <option value="0">&nbsp;</option>
-                        <option value="1">Real Madrid CF</option>
-                        <option value="2">Manchester City</option>
-                        <option value="3">Paris Saint Germain FC</option>
-                        </select>
+    {{!-- Header section --}}
+    <thead>
 
-                    <label> Away Team </label> <select name="away_team_name">
-                        <option value="0">&nbsp;</option>
-                        <option value="1">Real Madrid CF</option>
-                        <option value="2">Manchester City</option>
-                        <option value="3">Paris Saint Germain FC</option>
-                        </select>
+        {{!-- For the first row, hard code column headers for proper text formatting --}}
+        <tr>
+            
+            <th>ID</th>
+			<th>Year</th>
+			<th>Home Team</th>
+            <th>Home Score</th>
+            <th>Away Team</th>
+			<th>Away Score</th>
+        </tr>
+    </thead>
 
-                    <label for="make">Home Team Score</label>
-                    <input type="number" class="form-control" id="home_score" name="home_score" placeholder="0" min="0">
+    {{!-- Body section --}}
+    <tbody>
 
-                    <label for="make">Away Team Score</label>
-                    <input type="number" class="form-control" id="away_score" name="away_score" placeholder="0" min="0">
-                </fieldset>
+        {{!-- For each row, print the match_id, match_year, home_team_name, home_team_score, away_team_name, and away_team_score, in order --}}
+        {{#each data}}
+        <tr data-value={{this.match_id}}>
+			<td>{{this.match_id}}</td>
+            <td>{{this.match_year}}</td>
+            <td>{{this.home_team_name}}</td>
+            <td>{{this.home_team_score}}</td>
+            <td>{{this.away_team_name}}</td>
+			<td>{{this.away_team_score}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
 
-		        <!-- Create 'Add Match' and 'Cancel' buttons -->
-				<input type="submit" value="Add Match" name="Add_Match" class="btn btn-primary" style="margin:.5rem;">
-				<input class="btn" type="button" value="Cancel" onClick="browseMatches()"> 
-			</form>
-	</div><!--Add Match-->
+{{!-- Form to add a Match record to the table  --}}
+<h2>Add a Match Result</h2>
+<p>To add a new match, please enter the information below and click 'Submit'</p>
+<form id="add-match-form-ajax">
+    
+    <label for="input-year">Match Year: </label>
+    <input type="number" name="input-year" id="input-year">
 
-    <div id="browse">
-			
-		<table border="1" cellpadding="6">
-				
-			<thead>
-				<tr>							
-				    <th scope="col" data-field="Match Date" data-filter-control="input">Match Date</th>							
-				    <th scope="col" data-field="Home Team" data-filter-control="input">Home Team</th>							
-					<th scope="col" data-field="Away Team" data-filter-control="input">Away Team</th>	
-                    <th scope="col" data-field="Home Score" data-filter-control="input">Home Score</th>	
-					<th scope="col" data-field="Away Score" data-filter-control="input">Away Score</th>			
-                </tr>
-			<tbody>
-				<tr>	
-					<td> 2022-05-28 </td> 	
-					<td> Manchester City </td> 	
-					<td> Paris Saint Germain FC </td> 	
-                    <td> 3 </td>
-                    <td> 3 </td>
-				</tr> 
-							
-				<tr>						
-					<td> 2022-03-21 </td> 	
-					<td> Paris Saint Germain FC </td> 	
-					<td> Real Madrid CF </td> 	
-                    <td> 0 </td>
-                    <td> 1 </td>
-                </tr> 
-                
-                <tr>							
-                    <td> 2022-06-23 </td> 	
-					<td> Real Madrid CF </td> 	
-					<td> Manchester City </td> 	
-                    <td> 1 </td>
-                    <td> 3 </td>                  	
-                </tr> 
-							 	 
-		</table>   
-	    <p>&nbsp;</p>
-	</div>
-	</div> <!-- End of matches content -->
+	<label for="input-home_team_id">Home Team: </label>
+    <select name="input-home_team_id" id="mySelectHome">
+        <option value="test">Select a Team</option>
+        {{#each teams}}
+        <option value="{{this.team_id}}">{{this.team_name}}</option>
+        {{/each}}
+    </select>
+
+	<label for="input-away_team_id">Away Team: </label>
+    <select name="input-away_team_id" id="mySelectAway">
+        <option value="test">Select a Team</option>
+        {{#each teams}}
+        <option value="{{this.team_id}}">{{this.team_name}}</option>
+        {{/each}}
+    </select>
+
+	<label for="input-home_score">Home Score: </label>
+    <input type="number" name="input-home_score" id="input-home_score">
+
+	<label for="input-away_score">Away Score: </label>
+    <input type="number" name="input-away_score" id="input-away_score">
+
+    <input class="btn" type="Submit">
+</form>
+
+<script src="./js/add_match.js"></script>
+
+
+

@@ -1,9 +1,23 @@
-
+{{!--
+Citation for the following file:
+Date: 7/26/2022
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%208%20-%20Dynamically%20Updating%20Data/views/index.hbs
+--}}
 
 <!-- players.hbs -->
 <h1>Players</h1>
 <p>View or Add a Player</p>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+{{!-- Form to search for players by position --}}
+<form id="search-player-html" method='GET' action='/players'>
+    <label for="input-position">Search by Position: </label>
+    <input type="text" name="position" id="input-position-html-search">
+    
+    <input class="btn" type="Submit">
+    <a href='/players'><button class="btn">Reset</button></a>
+</form>
 
 {{!-- Create a table --}}
 <table id="player-table">
@@ -11,39 +25,35 @@
     {{!-- Header section --}}
     <thead>
 
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
+        {{!-- For the first row, print each key of the row object as a header cell --}}
         <tr>
-            
-            <th>Player ID</th>
-			<th>Name</th>
-			<th>Age</th>
-            <th>Position</th>
-            <th>Salary</th>
-            <th>Jersey Number</th>
-            <th>Team</th>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
         </tr>
     </thead>
 
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the ID, Name, Age, Position, Salary, Jersey Number, and Team, in order --}}
         {{#each data}}
-        <tr data-value={{this.player_id}}>
-			<td>{{this.player_id}}</td>
-            <td>{{this.player_name}}</td>
-            <td>{{this.player_age}}</td>
-            <td>{{this.position}}</td>
-            <td>{{this.salary}}</td>
-            <td>{{this.jersey_number}}</td>
-            <td>{{this.team_name}}</td>
+        <tr data-value={{this.ID}}>
+			<td>{{this.ID}}</td>
+            <td>{{this.Name}}</td>
+            <td>{{this.Age}}</td>
+            <td>{{this.Position}}</td>
+            <td>{{this.Salary}}</td>
+            <td>{{this.Number}}</td>
+            <td>{{this.Team}}</td>
         </tr>
         {{/each}}
     </tbody>
 </table>
 
-{{!-- Form to add a record to the table  --}}
+{{!-- Form to add a Player record to the table  --}}
 <h2>Add a Player</h2>
 <p>To add a new player, please enter the information below and click 'Submit'</p>
 <form id="add-player-form-ajax">
@@ -70,8 +80,46 @@
         {{/each}}
     </select>
 
-    <input type="Submit">
+    <input class="btn" type="Submit">
 </form>
 
 <script src="./js/add_player.js"></script>
 
+{{!-- Form to update an existing player record --}}
+<h2>Update a Player</h2>
+<p>To update a specific player select their name from the drop-down menu on the left and fill in the new values.</p>
+<form id="update-player-form-ajax">
+
+    <label for="input-name">Player: </label>
+    <select name="input-name" id="mySelectPlayer">
+        <option value="test">Select a Player</option>
+        {{#each data}}
+        <option value="{{this.ID}}">{{this.Name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-age">Age: </label>
+    <input type="number" name="input-age" id="input-age-update">
+
+    <label for="input-position">Position: </label>
+    <input type="text" name="input-position" id="input-position-update">
+
+    <label for="input-salary">Salary: </label>
+    <input type="number" name="input-salary" id="input-salary-update">
+
+    <label for="input-jersey_number">Jersey Number: </label>
+    <input type="number" name="input-jersey_number" id="input-jersey_number-update">
+
+	<label for="input-team_id">Team: </label>
+    <select name="input-team_id" id="mySelectTeam">
+        <option value="NULL">Select a Team</option>
+        {{#each teams}}
+        <option value="{{this.team_id}}">{{this.team_name}}</option>
+        {{/each}}
+    </select>
+
+    <input class="btn" type="submit">
+
+</form>
+
+<script src="./js/update_player.js"></script>
